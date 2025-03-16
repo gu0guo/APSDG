@@ -1,0 +1,3 @@
+# HGWaveNet模型配置
+embedding_dim: 64  # 嵌入维度
+curvature: -1.0    # 双曲空间曲率

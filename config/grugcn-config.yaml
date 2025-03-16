@@ -1,0 +1,2 @@
+# GRUGCN模型配置
+embedding_dim: 64  # 嵌入维度

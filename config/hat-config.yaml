@@ -1,0 +1,4 @@
+# HAT模型配置
+embedding_dim: 64  # 嵌入维度
+num_layers: 2      # 层数
+curvature: -1.0    # 双曲空间曲率

@@ -1,0 +1,17 @@
+# APSDG模型配置
+embedding_dim: 64  # 嵌入维度
+hidden_dim: 32     # 隐藏维度
+history_window: 5  # 历史窗口大小
+num_layers: 2      # 层数
+
+# 积空间特有参数
+e_ratio: 0.333     # 欧几里得空间的初始维度比例
+b_ratio: 0.333     # 双曲空间的初始维度比例
+s_ratio: 0.334     # 超球面空间的初始维度比例
+
+# 曲率参数
+b_curvature: -1.0  # 双曲空间的曲率
+s_curvature: 1.0   # 超球面空间的曲率
+
+# 强化学习参数
+rl_alpha: 0.01     # RL学习率
