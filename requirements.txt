@@ -6,3 +6,5 @@ pyyaml>=5.4.0
 tqdm>=4.50.0
 scipy>=1.5.3
 matplotlib>=3.3.2
+geoopt~=0.5.0
+yaml~=0.2.5

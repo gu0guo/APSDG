@@ -2,7 +2,6 @@ import torch
 import time
 import numpy as np
 from tqdm import tqdm
-from torch.utils.data import DataLoader
 from utils import evaluate_auc_ap
 
 

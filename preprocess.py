@@ -6,7 +6,7 @@ from tqdm import tqdm
 from utils import save_pickle, load_pickle
 
 
-def create_snapshots(data_path, dataset_name, window_size, num_snapshots=None):
+def create_snapshots(data_path, dataset_name, window_size, num_snapshots):
     """
     从原始数据创建离散动态图快照
 
@@ -54,11 +54,11 @@ def create_snapshots(data_path, dataset_name, window_size, num_snapshots=None):
     total_time = max_time - min_time
 
     # 如果未指定快照数，则使用自动计算的窗口数
-    if num_snapshots is None:
-        num_snapshots = int(total_time / window_size)
+    #if num_snapshots is None:
+        #num_snapshots = int(total_time / window_size)
 
     # 将时间窗口大小调整为覆盖整个时间范围
-    adjusted_window_size = total_time / num_snapshots
+    window_size = total_time / num_snapshots
 
     # 创建节点映射，将节点ID映射到连续整数
     node_map = {node: idx for idx, node in enumerate(sorted(node_set))}
@@ -70,7 +70,7 @@ def create_snapshots(data_path, dataset_name, window_size, num_snapshots=None):
 
     print("分配边到快照...")
     for src, dst, timestamp in tqdm(data):
-        snapshot_idx = min(int((timestamp - min_time) / adjusted_window_size), num_snapshots - 1)
+        snapshot_idx = min(int((timestamp - min_time) / window_size), num_snapshots - 1)
         edges_per_snapshot[snapshot_idx].append((node_map[src], node_map[dst]))
 
     # 构建DGL图
@@ -319,7 +319,7 @@ def load_data(args):
         split_edge: 包含训练、验证和测试边的字典
     """
     dataset_name = args.dataset
-    window_size = args.window_size if hasattr(args, 'window_size') else 1.0
+    num_snapshots = args.num_snapshots
 
     # 检查预处理的数据是否存在
     preprocessed_dir = os.path.join('dataset', 'preprocessed', dataset_name)
@@ -331,7 +331,7 @@ def load_data(args):
     else:
         # 创建快照
         data_path = os.path.join('dataset', 'raw')
-        snapshots = create_snapshots(data_path, dataset_name, window_size)
+        snapshots = create_snapshots(data_path, dataset_name, num_snapshots)
 
     # 创建数据分割
     split_dict = create_train_val_test_split(snapshots, train_ratio=0.8, val_ratio=0.1)

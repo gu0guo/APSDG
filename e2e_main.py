@@ -1,10 +1,8 @@
 import os
 import argparse
 import torch
-import yaml
 import time
 import numpy as np
-from copy import deepcopy
 from models.model import load_model
 from preprocess import load_data
 from process import train, evaluate_link_prediction, evaluate_new_link_prediction
@@ -31,7 +29,7 @@ def main():
     parser.add_argument('--clip_norm', type=float, default=1.0, help='梯度裁剪范数')
     parser.add_argument('--patience', type=int, default=10, help='早停耐心值')
     parser.add_argument('--seed', type=int, default=42, help='随机种子')
-    parser.add_argument('--window_size', type=float, default=1.0, help='时间窗口大小')
+    parser.add_argument('--num_snapshots', type=int, help='快照数量')
 
     # 解析参数
     args = parser.parse_args()

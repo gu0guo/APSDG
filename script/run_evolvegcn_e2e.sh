@@ -20,7 +20,8 @@ do
         --lr 0.01 \
         --weight_decay 0.0001 \
         --clip_norm 1.0 \
-        --patience 10
+        --patience 10 \
+        --num_snapshots 30
 done
 
 # 新链接预测任务
@@ -38,5 +39,6 @@ do
         --lr 0.01 \
         --weight_decay 0.0001 \
         --clip_norm 1.0 \
-        --patience 10
+        --patience 10 \
+        --num_snapshots 30
 done

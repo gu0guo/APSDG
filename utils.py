@@ -1,10 +1,8 @@
 import pickle as pkl
 import yaml
 import json
-import torch
 import numpy as np
 import gc
-import torch.nn.functional as F
 from sklearn.metrics import roc_auc_score, average_precision_score
 
 
@@ -84,54 +82,5 @@ def evaluate_auc_ap(pos_pred, neg_pred):
     return auc, ap
 
 
-def dot_product(src_emb, dst_emb):
-    """计算点积，用于链接预测"""
-    if src_emb.shape != dst_emb.shape:
-        return (src_emb.unsqueeze(-2) * dst_emb).sum(dim=-1)
-    else:
-        return (src_emb * dst_emb).sum(dim=-1)
 
 
-class EdgeDataloader:
-    """边数据加载器，用于批处理"""
-
-    def __init__(self, edge_set, batch_size):
-        self.edge_set = edge_set
-        self.batch_size = batch_size
-        self.num_edges = edge_set.size(0)
-        self.indices = torch.randperm(self.num_edges)
-        self.current_pos = 0
-
-    def __iter__(self):
-        self.current_pos = 0
-        self.indices = torch.randperm(self.num_edges)
-        return self
-
-    def __next__(self):
-        if self.current_pos >= self.num_edges:
-            raise StopIteration
-        else:
-            batch_indices = self.indices[self.current_pos:min(self.current_pos + self.batch_size, self.num_edges)]
-            self.current_pos += self.batch_size
-            return self.edge_set[batch_indices]
-
-    def __len__(self):
-        return (self.num_edges + self.batch_size - 1) // self.batch_size
-
-
-class SnapshotBatchSampler:
-    """快照批量采样器，用于离散动态图数据"""
-
-    def __init__(self, snapshots, batch_size):
-        self.snapshots = snapshots
-        self.batch_size = batch_size
-        self.num_snapshots = len(snapshots)
-
-    def __iter__(self):
-        for i in range(self.num_snapshots):
-            edges = self.snapshots[i].edges()
-            num_edges = edges[0].size(0)
-            for j in range(0, num_edges, self.batch_size):
-                end_idx = min(j + self.batch_size, num_edges)
-                batch_edges = (edges[0][j:end_idx], edges[1][j:end_idx])
-                yield i, batch_edges
