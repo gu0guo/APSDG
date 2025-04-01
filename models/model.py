@@ -394,6 +394,9 @@ class APSDG(nn.Module):
         Returns:
             updated_emb: 更新后的节点嵌入
         """
+
+        graph = graph.to(self.node_embeddings.device)
+
         # 分割初始嵌入为三个空间的嵌入
         e_emb = self.node_embeddings[:, :self.e_dim]
         b_emb = self.node_embeddings[:, self.e_dim:self.e_dim + self.b_dim]

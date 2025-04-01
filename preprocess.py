@@ -6,7 +6,7 @@ from tqdm import tqdm
 from utils import save_pickle, load_pickle
 
 
-def create_snapshots(data_path, dataset_name, window_size, num_snapshots):
+def create_snapshots(data_path, dataset_name, num_snapshots):
     """
     从原始数据创建离散动态图快照
 
