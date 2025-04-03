@@ -150,7 +150,7 @@ class ProductSpaceMessagePassing(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             # 获取聚合结果
             return graph.ndata['neigh']
@@ -167,7 +167,7 @@ class ProductSpaceMessagePassing(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             # 获取聚合结果
             neigh = graph.ndata['neigh']
@@ -187,7 +187,7 @@ class ProductSpaceMessagePassing(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             # 获取聚合结果
             neigh = graph.ndata['neigh']
@@ -500,7 +500,7 @@ class HAT(nn.Module):
         # 这是一个简化的实现
         with graph.local_scope():
             graph.ndata['h'] = self.node_embeddings
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
             return graph.ndata['neigh']
 
     def predict_link(self, src_nodes, dst_nodes):
@@ -537,7 +537,7 @@ class HGCN(nn.Module):
         # 简化实现
         with graph.local_scope():
             graph.ndata['h'] = torch.matmul(self.node_embeddings, self.weight)
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
             return graph.ndata['neigh']
 
     def predict_link(self, src_nodes, dst_nodes):
@@ -588,7 +588,7 @@ class EvolveGCN(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             result = graph.ndata['neigh']
 
@@ -639,7 +639,7 @@ class GRUGCN(nn.Module):
             h = torch.matmul(self.node_embeddings, self.gc_weight)
 
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             gcn_output = graph.ndata['neigh']
 
@@ -703,7 +703,7 @@ class HTGN(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             neigh = graph.ndata['neigh']
 
@@ -778,7 +778,7 @@ class HGWaveNet(nn.Module):
 
             # 消息传递
             graph.ndata['h'] = h
-            graph.update_all(fn.copy_u('h', 'm'), fn.ReduceFunction.mean('m', 'neigh'))
+            graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
 
             neigh = graph.ndata['neigh']
 
