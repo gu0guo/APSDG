@@ -3,8 +3,8 @@
 # APSDG模型运行脚本
 
 # 设置数据集
-DATASETS=("enron" "dblp" "hepph" "as733" "fbw")
-
+#DATASETS=("enron" "dblp" "hepph" "as733" "fbw")
+DATASETS=( "hepph" )
 # 链接预测任务
 for DATASET in "${DATASETS[@]}"
 do
@@ -16,12 +16,12 @@ do
         --task link_prediction \
         --device 0 \
         --epochs 100 \
-        --batch_size 1024 \
-        --lr 0.01 \
-        --weight_decay 0.0001 \
+        --batch_size 512 \
+        --lr 0.001 \
+        --weight_decay 0.0005 \
         --clip_norm 1.0 \
-        --patience 10 \
-        --num_snapshots 30
+        --patience 50 \
+        --num_snapshots 72
 done
 
 # 新链接预测任务
@@ -35,10 +35,10 @@ do
         --task new_link_prediction \
         --device 0 \
         --epochs 100 \
-        --batch_size 1024 \
-        --lr 0.01 \
-        --weight_decay 0.0001 \
+        --batch_size 512 \
+        --lr 0.001 \
+        --weight_decay 0.0005 \
         --clip_norm 1.0 \
-        --patience 10 \
-        --num_snapshots 30
+        --patience 50 \
+        --num_snapshots 72
 done

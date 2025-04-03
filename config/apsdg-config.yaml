@@ -14,4 +14,4 @@ b_curvature: -1.0  # 双曲空间的曲率
 s_curvature: 1.0   # 超球面空间的曲率
 
 # 强化学习参数
-rl_alpha: 0.01     # RL学习率
+rl_alpha: 0.001     # RL学习率

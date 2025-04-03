@@ -23,11 +23,11 @@ def main():
     # 训练参数
     parser.add_argument('--device', type=int, default=0, help='GPU设备ID')
     parser.add_argument('--epochs', type=int, default=100, help='训练轮数')
-    parser.add_argument('--batch_size', type=int, default=1024, help='批量大小')
-    parser.add_argument('--lr', type=float, default=0.01, help='学习率')
-    parser.add_argument('--weight_decay', type=float, default=0.0001, help='权重衰减')
+    parser.add_argument('--batch_size', type=int, help='批量大小')
+    parser.add_argument('--lr', type=float,  help='学习率')
+    parser.add_argument('--weight_decay', type=float, help='权重衰减')
     parser.add_argument('--clip_norm', type=float, default=1.0, help='梯度裁剪范数')
-    parser.add_argument('--patience', type=int, default=10, help='早停耐心值')
+    parser.add_argument('--patience', type=int, help='早停耐心值')
     parser.add_argument('--seed', type=int, default=42, help='随机种子')
     parser.add_argument('--num_snapshots', type=int, help='快照数量')
 
