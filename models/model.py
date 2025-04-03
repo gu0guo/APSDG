@@ -498,6 +498,7 @@ class HAT(nn.Module):
     def forward(self, graph, *args, **kwargs):
         """前向传播"""
         # 这是一个简化的实现
+        graph = graph.to(self.node_embeddings.device)
         with graph.local_scope():
             graph.ndata['h'] = self.node_embeddings
             graph.update_all(fn.copy_u('h', 'm'), fn.mean('m', 'neigh'))
